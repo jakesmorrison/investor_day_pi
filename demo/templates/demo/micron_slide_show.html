@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slide Show</title>
+
+    {% load staticfiles %}
+    <link href=" {% static 'demo/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href=" {% static 'demo/css/micron_slide_show.css' %}" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row row1">
+        <div class="slideshow-container">
+
+            <div id="slide0" class="mySlides hide" style="">
+                <img style='width: 100%; height: 100%;' class='screenshot' src="{% static 'demo/images/page_0.png' %}">
+            </div>
+            <div id="slide1" class="mySlides hide" style="">
+                <img style='width: 100%; height: 100%;' class='screenshot' src="{% static 'demo/images/page_1.png' %}">
+            </div>
+            <div id="slide2" class="mySlides hide" style="">
+                <img style='width: 100%; height: 100%;' class='screenshot' src="{% static 'demo/images/page_2.png' %}">
+            </div>
+            <div id="slide3" class="mySlides hide" style="">
+                <img style='width: 100%; height: 100%;' class='screenshot' src="{% static 'demo/images/page_3.png' %}">
+            </div>
+
+        </div>
+    </div>
+
+<!--
+    <div class="row row2">
+        <div class="col-xs-8">
+            <h1 class="main-header myfont bold">Welcome Micron Investors</h1>
+        </div>
+        <div class="centered col-xs-4 col-xs-offset-0">
+            <img style="width: 76%" class="logo micron" src="{% static 'demo/images/micron_white.png' %}" alt="micron">
+        </div>
+    </div>
+//-->
+
+</div>
+
+<script src=" {% static 'demo/js/jquery-1.12.4.js' %}" rel="stylesheet"></script>
+<script src=" {% static 'demo/js/bootstrap.min.js' %}" rel="stylesheet"></script>
+
+
+<script>
+var number_of_slides = 4;
+var slide_counter = 0;
+var row1_width;
+var row1_height;
+$(document).ready(function() {
+    //Setting Up Rows
+    var height = $(window).height();
+    $('.row1').css('height',height);
+    //$('.row1').css('height',height*.75);
+    //$('.row2').css('height',height*.25);
+    row1_width = $('.row1').width();
+    row1_height = $('.row1').height();
+    //Fixing Logo
+    var row2_height = $('.row2').height();
+    var logo_height1 = $('.micron').height();
+    $('.micron').css('margin-top',(row2_height-logo_height1)/2);
+    var main_header = $('.main-header').height();
+    $('.main-header').css('margin-top',(row2_height-main_header)/2);
+    slide_show()
+})
+function slide_show(){
+    if(slide_counter>=number_of_slides){
+        slide_counter = 0;
+    }
+    // Change LEDs.
+    url_base = "{% url 'demo:change_led' %}";
+    params = {'slide': slide_counter};
+    url = url_base + "?" + $.param( params );
+    $.ajax({
+        type: 'GET',
+        url: url,
+        success: function(msg) {
+        }
+    });
+    slide_counter_delete = slide_counter - 1;
+    if (slide_counter_delete<0){
+        slide_counter_delete = number_of_slides-1;
+    }
+    $("#slide"+slide_counter_delete).removeClass("fade");
+    $("#slide"+slide_counter_delete).addClass("hide");
+    $("#slide"+slide_counter).removeClass("hide");
+    $("#slide"+slide_counter).addClass("fade");
+    $('#slide'+slide_counter).css('width',row1_width);
+    $('#slide'+slide_counter).css('height',row1_height);
+    slide_counter +=1;
+    setTimeout(slide_show, 10000);
+}
+</script>
+
+</body>
+</html>

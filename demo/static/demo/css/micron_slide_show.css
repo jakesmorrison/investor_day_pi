@@ -1,0 +1,64 @@
+.container{
+    width: 100%;
+}
+
+.row1{
+    background: white;
+    top: 0;
+    left: 0;
+}
+
+.row2{
+    background: #0077C8;
+}
+
+.main-header{
+    color: white;
+    text-align:left;
+    padding-left: 25px;
+    font-size: 50px;
+}
+
+
+* {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  margin: auto;
+}
+
+.mySlides{
+    position: absolute;
+    /*padding: 25px;*/
+}
+
+.hide {
+    display: none;
+}
+
+.show{
+    display: block;
+}
+
+/* Fading animation */
+.fade {
+  display: block;
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
